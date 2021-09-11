@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from '../../services/productos.service';
-import ProductoDescripcion  from '../../interfaces/producto-descripcion.interface';
+import { ProductoDescripcion }  from '../../interfaces/producto-descripcion.interface';
 
 
 @Component({
@@ -11,7 +11,8 @@ import ProductoDescripcion  from '../../interfaces/producto-descripcion.interfac
 })
 export class ItemComponent implements OnInit {
 
-  producto: ProductoDescripcion;
+  producto!: ProductoDescripcion;
+  id!: string;
 
   constructor( private route: ActivatedRoute,
               public productoService: ProductosService ) { }
@@ -25,6 +26,7 @@ export class ItemComponent implements OnInit {
             .subscribe( ( producto: ProductoDescripcion ) => {
       //.subscribe( (resp: any)  => {
 
+        this.id = parametros ['id'];
         this.producto = producto;
         console.log(producto);
         
