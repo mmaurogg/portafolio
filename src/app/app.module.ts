@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import {HttpClientModule} from '@angular/common/http';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //rutas
 import { AppRoutingModule } from './app-routing.module';
 
@@ -14,6 +16,7 @@ import { PortafolioComponent } from './pages/portafolio/portafolio.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ItemComponent } from './pages/item/item.component';
 import { SearchComponent } from './pages/search/search.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 @NgModule({
@@ -24,12 +27,15 @@ import { SearchComponent } from './pages/search/search.component';
     PortafolioComponent,
     AboutComponent,
     ItemComponent,
-    SearchComponent
+    SearchComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

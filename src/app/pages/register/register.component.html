@@ -1,0 +1,128 @@
+<h4>Formulario <small> de registro </small></h4>
+<hr />
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+    <div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre o Razon social</label>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido" />
+                <small *ngIf="nombreNoValido" class="text-danger">
+          Ingrese al menos 5 letras
+        </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Cedula o Nit</label>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Documento" formControlName="documento" [class.is-invalid]="documentoNoValido" />
+                <small *ngIf="documentoNoValido" class="text-danger">
+          El documento es obligatorio
+        </small>
+            </div>
+        </div>
+
+        <div class="form-group row" formGroupName="ubicacion">
+            <label class="col-2 col-form-label">Ubicación</label>
+            <div class="form-row row col">
+                <div class="col-8">
+                    <input class="form-control" type="text" placeholder="Dirección" formControlName="direccion" formGroupName="direccion" [class.is-invalid]="direccionNoValido" />
+                </div>
+                <div class="col-4">
+                    <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" formGroupName="ciudad" [class.is-invalid]="ciudadNoValido" />
+                </div>
+                <small *ngIf="" class="text-danger">
+          La dirección es obligatoria
+        </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Teléfono</label>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Telefono" formControlName="telefono" [class.is-invalid]="telefonoNoValido" />
+                <small *ngIf="telefonoNoValido" class="text-danger">
+          ingrese un telefono válido
+        </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label" required>Correo</label>
+        <div class="col">
+            <input class="form-control" type="email" placeholder="Correo" formControlName="email" [class.is-invalid]="emailNoValido" />
+            <small *ngIf="emailNoValido" class="text-danger">
+        Ingrese un correo válido
+      </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label for="contrasena" class="col-form-label">Contraseña</label>
+        </div>
+        <div class="col">
+            <input type="password" id="contrasena" class="form-control" aria-describedby="passwordHelpInline" formControlName="contrasena" [class.is-invalid]="contrasenaNoValido" />
+        </div>
+        <div class="col">
+            <span id="passwordHelpInline" class="form-text">
+        Debe contener 8-20 caracteres.
+      </span>
+            <small *ngIf="contrasenaNoValido" class="text-danger">
+        Ingrese una contraceña válida
+      </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label for="contrasena2" class="col-form-label">Repite Contraseña</label>
+        </div>
+        <div class="col">
+            <input type="password" id="contrasena2" class="form-control" aria-describedby="passwordHelpInline" formControlName="contrasena2" [class.is-invalid]="contrasena2NoValido" />
+        </div>
+        <div class="col">
+            <span id="passwordHelpInline" class="form-text">
+        Repita su contraeña
+      </span>
+            <small *ngIf="contrasena2NoValido" class="text-danger">
+        Las contraseñas no coinciden
+      </small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Tipo</label>
+        <div class="col-8">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="tipo" value="comprador" [class.is-invalid]="tipoNoValido" />
+                <label class="form-check-label">Comprador</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="tipo" value="productor" [class.is-invalid]="tipoNoValido" />
+                <label class="form-check-label">Productor</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+        </div>
+    </div>
+</form>
+
+<hr />
+<pre>Estado del formulario {{ forma.valid }} 
+    <br>
+    Status: {{ forma.status }}
+</pre>
+
+<pre>
+    {{ forma.value | json }}
+</pre>
