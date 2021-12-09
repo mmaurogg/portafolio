@@ -30,7 +30,6 @@ export class ProductosService {
   
       });
       
-
       });
 
     }
@@ -41,7 +40,7 @@ export class ProductosService {
 
     } 
 
-    buscarProducto ( termino: string) {
+    buscarProducto ( termino: string ) {
 
       if(this.productos.length === 0) {
         //cargar productos

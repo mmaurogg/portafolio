@@ -17,6 +17,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ItemComponent } from './pages/item/item.component';
 import { SearchComponent } from './pages/search/search.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { CarritoComponent } from './pages/carrito/carrito.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RegisterComponent } from './pages/register/register.component';
     AboutComponent,
     ItemComponent,
     SearchComponent,
-    RegisterComponent
+    RegisterComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,

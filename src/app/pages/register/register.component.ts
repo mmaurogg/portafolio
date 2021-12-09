@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/services/validators.service';
+import { ContactoModel } from '../../interfaces/contacto.model';
+import { ContactoService } from '../../services/contacto.service';
 
 @Component({
   selector: 'app-register',
@@ -10,9 +12,12 @@ import { ValidatorsService } from 'src/app/services/validators.service';
 export class RegisterComponent implements OnInit {
 
   forma: FormGroup | any;
+  
+  contacto: ContactoModel = new ContactoModel();
 
   constructor(private fb: FormBuilder,
-              private validadores: ValidatorsService
+              private validadores: ValidatorsService,
+              private contatoService: ContactoService
     ) {
 
     this.crearFormulario();
@@ -57,11 +62,16 @@ export class RegisterComponent implements OnInit {
 
     return (contrasena === contrasena2 ) ? false : true;
     
-    //this.forma.get('contrasena2').invalid && this.forma.get('contrasena2').touched
   }
 
   get tipoNoValido() {
     return this.forma.get('tipo').invalid && this.forma.get('tipo').touched
+  }
+
+  get adjuntoRutNoValido() {
+    if ( this.forma.get('tipo').value === 'productor' ){
+      return this.forma.get('adjuntoRut').invalid && this.forma.get('adjuntoRut').touched
+    }
   }
 
   crearFormulario() {
@@ -95,14 +105,15 @@ export class RegisterComponent implements OnInit {
       },
       telefono: "11111",
       email: "pepesagaz@hotmail.com",
-      contrasena: "",
-      tipo: "",
+      contrasena: "12345678",
+      contrasena2: "12345678",
+      tipo: "productor",
       adjuntoRut: ""
     });
   }
 
   guardar() {
-    console.log(this.forma);
+    console.log( this.forma );
 
     if (this.forma.invalid) {
       return Object.values(this.forma.controls).forEach((control: any) => {
@@ -110,13 +121,36 @@ export class RegisterComponent implements OnInit {
         if (control instanceof FormGroup) {
           return Object.values(control.controls).forEach((control: any) => control.markAsTouched());
         }
-
         control.markAsTouched();
       });
 
     }
 
+    //almacenar la info
+    const contacto: ContactoModel = {
+      
+      nombre: this.forma.value.nombre,
+      documento: this.forma.value.documento,
+      ubicacion: {
+          direccion: this.forma.value.ubicacion.direccion,
+          ciudad: this.forma.value.ubicacion.ciudad
+      },
+      telefonos: this.forma.value.telefono,
+      email: this.forma.value.email,
+      contrasena: this.forma.value.contrasena,
+      tipo: this.forma.value.tipo,
+      adjuntoRut: this.forma.value.adjuntoRut
+    }
+
+    //posteo de informacion
+    this.contatoService.crearContacto( contacto ).subscribe ( resp => {
+      console.log( resp );
+    });
+
+
+    this.cargarDataAlFormulario();
   }
 
+    
 
 }
